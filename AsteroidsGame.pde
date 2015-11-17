@@ -1,22 +1,38 @@
 SpaceShip tom; 
 Star[] light; 
+Asteroid[] sue; 
 public void setup() 
 {
  size(600, 600); 
- tom = new SpaceShip(); 
+ tom = new SpaceShip();
+ // star 
  light = new Star[200];
- for (int i = 0; i < light.length; i++) {
+ for (int i = 0; i < light.length; i++) 
+ {
  light[i] = new Star(); 
-} 
+ } 
+ // asteriud
+ sue = new Asteroid[50]; 
+for (int i = 0; i < sue.length; i++) { 
+sue[i] = new Asteroid(); 
+ }
 }
 public void draw() 
 {
   background(0);
+  // stars
   for (int i = 0; i < light.length; i++) { 
     light[i].show(); 
   } 
+  // spaceship
   tom.show(); 
   tom.move(); 
+  // asteroid
+ for (int i = 0; i < sue.length; i++) { 
+  sue[i].move(); 
+  sue[i].show(); 
+  } 
+
 }
 public void keyPressed() { 
   if (keyCode == UP) { 
@@ -37,6 +53,74 @@ public void keyPressed() {
   }
  
 } 
+class Asteroid extends Floater 
+{ 
+public void setX(int x){myCenterX = x;} 
+public int getX() {return (int)myCenterX;} 
+public void setY(int y){myCenterY = y;}
+public int getY() {return (int)myCenterY;}
+public void setDirectionX(double x) {myDirectionX = x;}
+public double getDirectionX() {return myDirectionX;}
+public void setDirectionY(double y) {myDirectionY = y;}
+public double getDirectionY() {return myDirectionY;}
+public void setPointDirection(int degrees){myPointDirection = degrees;}
+public double getPointDirection(){return myPointDirection;}
+private int rotSpeed; 
+public Asteroid() { 
+  if(Math.random() < 0.5) {
+    rotSpeed = -1; 
+  } else { 
+    rotSpeed = 1; 
+  }
+  corners = 6;
+  xCorners = new int[corners];
+  yCorners = new int[corners];
+  xCorners[0] = -11;
+  yCorners[0] = -8;
+  xCorners[1] = 7;
+  yCorners[1] = -8;
+  xCorners[2] = 13;
+  yCorners[2] = 0;
+  xCorners[3] = 6;
+  yCorners[3] = 10;
+  xCorners[4] = -11;
+  yCorners[4] = 8;
+  xCorners[5] = -5;
+  yCorners[5] = 0;
+  myColor = color(192, 192, 192); 
+  myCenterX = (int)(Math.random()*600); 
+  myCenterY = (int)(Math.random()*600); 
+  myDirectionX = 0; 
+  myDirectionY = 0; 
+  myPointDirection = 270;
+} 
+
+public void move() 
+{ 
+  rotate(rotSpeed); 
+  super.move(); 
+    }
+  public void show ()  
+  {             
+    fill(myColor);   
+    stroke(myColor);    
+    //convert degrees to radians for sin and cos         
+    double dRadians = myPointDirection*(Math.PI/180);                 
+    int xRotatedTranslated, yRotatedTranslated;    
+    beginShape();         
+    for(int nI = 0; nI < corners; nI++)    
+    {     
+      //rotate and translate the coordinates of the floater using current direction 
+      xRotatedTranslated = (int)((xCorners[nI]* Math.cos(dRadians)) - (yCorners[nI] * Math.sin(dRadians))+myCenterX);     
+      yRotatedTranslated = (int)((xCorners[nI]* Math.sin(dRadians)) + (yCorners[nI] * Math.cos(dRadians))+myCenterY);      
+      vertex(xRotatedTranslated,yRotatedTranslated);    
+    }   
+    endShape(CLOSE);  
+  }   
+ 
+
+}
+
 class SpaceShip extends Floater  
 {   
     public void setX(int x){myCenterX = x;} 
