@@ -72,22 +72,26 @@ public Asteroid() {
   } else { 
     rotSpeed = 1; 
   }
-  corners = 6;
+  corners = 8;
   xCorners = new int[corners];
   yCorners = new int[corners];
-  xCorners[0] = -11;
-  yCorners[0] = -8;
-  xCorners[1] = 7;
-  yCorners[1] = -8;
-  xCorners[2] = 13;
-  yCorners[2] = 0;
-  xCorners[3] = 6;
-  yCorners[3] = 10;
-  xCorners[4] = -11;
-  yCorners[4] = 8;
-  xCorners[5] = -5;
-  yCorners[5] = 0;
-  myColor = color(192, 192, 192); 
+  xCorners[0] = -15;
+  yCorners[0] = 0;
+  xCorners[1] = -10;
+  yCorners[1] = -7;
+  xCorners[2] = 0;
+  yCorners[2] = -12;
+  xCorners[3] = 10;
+  yCorners[3] = -7;
+  xCorners[4] = 15;
+  yCorners[4] = 0;
+  xCorners[5] = 7;
+  yCorners[5] = 10;
+  xCorners[6] = 0;
+  yCorners[6] = 8; 
+  xCorners[7] = -10;
+  yCorners[7] = 5; 
+  myColor = color((int)(Math.random() *256), 256, 256); 
   myCenterX = (int)(Math.random()*600); 
   myCenterY = (int)(Math.random()*600); 
   myDirectionX = 0; 
@@ -99,25 +103,7 @@ public void move()
 { 
   rotate(rotSpeed); 
   super.move(); 
-    }
-  public void show ()  
-  {             
-    fill(myColor);   
-    stroke(myColor);    
-    //convert degrees to radians for sin and cos         
-    double dRadians = myPointDirection*(Math.PI/180);                 
-    int xRotatedTranslated, yRotatedTranslated;    
-    beginShape();         
-    for(int nI = 0; nI < corners; nI++)    
-    {     
-      //rotate and translate the coordinates of the floater using current direction 
-      xRotatedTranslated = (int)((xCorners[nI]* Math.cos(dRadians)) - (yCorners[nI] * Math.sin(dRadians))+myCenterX);     
-      yRotatedTranslated = (int)((xCorners[nI]* Math.sin(dRadians)) + (yCorners[nI] * Math.cos(dRadians))+myCenterY);      
-      vertex(xRotatedTranslated,yRotatedTranslated);    
-    }   
-    endShape(CLOSE);  
-  }   
- 
+  }
 
 }
 
@@ -235,7 +221,7 @@ Star()
 { 
   starX = (int)(Math.random() * 600); 
   starY = (int)(Math.random() * 600);
-  radius = (int)(Math.random() * 1) + 2; 
+  radius = (int)(Math.random() * 2) + 1; 
 } 
 public void show() {
 fill(256, 256, 256);
