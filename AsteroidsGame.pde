@@ -94,15 +94,15 @@ public Asteroid() {
   myColor = color((int)(Math.random() *256), 256, 256); 
   myCenterX = (int)(Math.random()*600); 
   myCenterY = (int)(Math.random()*600); 
-  myDirectionX = 0; 
-  myDirectionY = 0; 
+  myDirectionX = (int)(Math.random()*3)-1; 
+  myDirectionY = (int)(Math.random()*3)-1; 
   myPointDirection = 270;
 } 
 
 public void move() 
 { 
   rotate(rotSpeed); 
-  super.move(); 
+  super.move();
   }
 
 }
