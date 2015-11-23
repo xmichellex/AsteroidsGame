@@ -12,7 +12,7 @@ public void setup()
  light[i] = new Star(); 
  } 
  // asteriud
- sue = new Asteroid[50]; 
+ sue = new Asteroid[20]; 
 for (int i = 0; i < sue.length; i++) { 
 sue[i] = new Asteroid(); 
  }
