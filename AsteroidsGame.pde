@@ -68,9 +68,9 @@ public double getPointDirection(){return myPointDirection;}
 private int rotSpeed; 
 public Asteroid() { 
   if(Math.random() < 0.5) {
-    rotSpeed = -1; 
+    rotSpeed = -3; 
   } else { 
-    rotSpeed = 1; 
+    rotSpeed = 3; 
   }
   corners = 8;
   xCorners = new int[corners];
@@ -94,8 +94,16 @@ public Asteroid() {
   myColor = color((int)(Math.random() *256), 256, 256); 
   myCenterX = (int)(Math.random()*600); 
   myCenterY = (int)(Math.random()*600); 
-  myDirectionX = (int)(Math.random()*3)-1; 
-  myDirectionY = (int)(Math.random()*3)-1; 
+  if(Math.random() < 0.5) {
+    myDirectionX = (int)(Math.random())+1;
+  } else { 
+    myDirectionX = -((int)(Math.random())+1); 
+  }
+  if(Math.random() < 0.5) { 
+    myDirectionY = (int)(Math.random())+1; 
+  } else { 
+    myDirectionY = -((int)(Math.random())+1); 
+  }
   myPointDirection = 270;
 } 
 
@@ -229,4 +237,5 @@ noStroke();
 ellipse(starX, starY, radius, radius); 
 } 
 }
+
 
