@@ -1,6 +1,6 @@
 SpaceShip tom; 
 Star[] light; 
-Asteroid[] sue; 
+ArrayList <Asteroid> theList; 
 public void setup() 
 {
  size(600, 600); 
@@ -11,12 +11,17 @@ public void setup()
  {
  light[i] = new Star(); 
  } 
- // asteriud
- sue = new Asteroid[20]; 
+ // asteroid
+ /*sue = new Asteroid[20]; 
 for (int i = 0; i < sue.length; i++) { 
 sue[i] = new Asteroid(); 
+ } */
+ theList = new ArrayList<Asteroid>(); 
+ for(int i = 0; i < 20; i++) { 
+  theList.add(new Asteroid()); 
  }
 }
+
 public void draw() 
 {
   background(0);
@@ -28,9 +33,13 @@ public void draw()
   tom.show(); 
   tom.move(); 
   // asteroid
- for (int i = 0; i < sue.length; i++) { 
-  sue[i].move(); 
-  sue[i].show(); 
+ for (int i = 0; i < theList.size(); i++) { 
+  theList.get(i).move(); 
+  theList.get(i).show(); 
+  if(dist(tom.getX(), tom.getY(), theList.get(i).getX(), theList.get(i).getY()) < 20)  
+    { 
+    theList.remove(i); 
+    }
   } 
 
 }
@@ -53,6 +62,7 @@ public void keyPressed() {
   }
  
 } 
+
 class Asteroid extends Floater 
 { 
 public void setX(int x){myCenterX = x;} 
@@ -91,7 +101,7 @@ public Asteroid() {
   yCorners[6] = 8; 
   xCorners[7] = -10;
   yCorners[7] = 5; 
-  myColor = color((int)(Math.random() *256), 256, 256); 
+  myColor = color(120, 120, 120); 
   myCenterX = (int)(Math.random()*600); 
   myCenterY = (int)(Math.random()*600); 
   if(Math.random() < 0.5) {
@@ -112,7 +122,6 @@ public void move()
   rotate(rotSpeed); 
   super.move();
   }
-
 }
 
 class SpaceShip extends Floater  
@@ -232,10 +241,9 @@ Star()
   radius = (int)(Math.random() * 2) + 1; 
 } 
 public void show() {
-fill(256, 256, 256);
+fill(256, 220, (int)(Math.random()*2));
 noStroke();  
 ellipse(starX, starY, radius, radius); 
-} 
+  } 
 }
-
 
