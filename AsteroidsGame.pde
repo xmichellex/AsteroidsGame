@@ -1,10 +1,13 @@
+
 SpaceShip tom; 
 Star[] light; 
 ArrayList <Asteroid> theList; 
+ArrayList <Bullet> fire; 
 public void setup() 
 {
  size(600, 600); 
  tom = new SpaceShip();
+ fire = new ArrayList <Bullet>(); 
  // star 
  light = new Star[200];
  for (int i = 0; i < light.length; i++) 
@@ -12,20 +15,19 @@ public void setup()
  light[i] = new Star(); 
  } 
  // asteroid
- /*sue = new Asteroid[20]; 
-for (int i = 0; i < sue.length; i++) { 
-sue[i] = new Asteroid(); 
- } */
  theList = new ArrayList<Asteroid>(); 
  for(int i = 0; i < 20; i++) { 
   theList.add(new Asteroid()); 
  }
+ fire = new ArrayList<Bullet>(); 
+ for(int i = 0; i < 1; i++) { 
+  fire.add(new Bullet(tom)); 
+ }
 }
-
 public void draw() 
 {
   background(0);
-  // stars
+  // stars                                                                   
   for (int i = 0; i < light.length; i++) { 
     light[i].show(); 
   } 
@@ -40,8 +42,17 @@ public void draw()
     { 
     theList.remove(i); 
     }
-  } 
-
+  }
+  //bullet 
+  for(int i=0; i<fire.size(); i++)
+    {
+    fire.get(i).move();
+    fire.get(i).show();
+    if(fire.get(i).getX()<1 || fire.get(i).getX()>width-1 || fire.get(i).getY()<1 || fire.get(i).getY()>height-1)
+    {
+      fire.remove(i);
+    }
+  }
 }
 public void keyPressed() { 
   if (keyCode == UP) { 
@@ -62,6 +73,41 @@ public void keyPressed() {
   }
  
 } 
+
+class Bullet extends Floater 
+{
+public void setX(int x){myCenterX = x;} 
+public int getX() {return (int)myCenterX;} 
+public void setY(int y){myCenterY = y;}
+public int getY() {return (int)myCenterY;}
+public void setDirectionX(double x) {myDirectionX = x;}
+public double getDirectionX() {return myDirectionX;}
+public void setDirectionY(double y) {myDirectionY = y;}
+public double getDirectionY() {return myDirectionY;}
+public void setPointDirection(int degrees){myPointDirection = degrees;}
+public double getPointDirection(){return myPointDirection;}
+public Bullet(SpaceShip theShip) 
+{
+myCenterX = theShip.getX(); 
+myCenterY = theShip.getY(); 
+myPointDirection = theShip.getPointDirection();
+double dRadians = myPointDirection*(Math.PI/180);
+myDirectionX = 5 * Math.cos(dRadians) + theShip.getDirectionX(); 
+myDirectionY = 5 * Math.cos(dRadians) + theShip.getDirectionY(); 
+} 
+
+public void show() 
+{ 
+fill(256, 0, 0); 
+ellipse((float)myCenterX, (float)myCenterY, 4, 4); 
+}
+public void move() 
+{
+
+
+
+}
+}
 
 class Asteroid extends Floater 
 { 
