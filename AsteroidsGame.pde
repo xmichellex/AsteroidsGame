@@ -20,9 +20,7 @@ public void setup()
   theList.add(new Asteroid()); 
  }
  fire = new ArrayList<Bullet>(); 
- for(int i = 0; i < 1; i++) { 
-  fire.add(new Bullet(tom)); 
- }
+ 
 }
 public void draw() 
 {
@@ -46,12 +44,8 @@ public void draw()
   //bullet 
   for(int i=0; i<fire.size(); i++)
     {
-    fire.get(i).move();
     fire.get(i).show();
-    if(fire.get(i).getX()<1 || fire.get(i).getX()>width-1 || fire.get(i).getY()<1 || fire.get(i).getY()>height-1)
-    {
-      fire.remove(i);
-    }
+    fire.get(i).move(); 
   }
 }
 public void keyPressed() { 
@@ -69,9 +63,11 @@ public void keyPressed() {
     tom.setY((int)(Math.random()*600));
     tom.setPointDirection((int)(Math.random()*360));
     tom.setDirectionX(0);
-    tom.setDirectionY(0); 
-  }
- 
+    tom.setDirectionY(0);
+  }   
+  if (key == 'z') { 
+    fire.add(new Bullet(tom)); 
+  } 
 } 
 
 class Bullet extends Floater 
@@ -86,7 +82,8 @@ public void setDirectionY(double y) {myDirectionY = y;}
 public double getDirectionY() {return myDirectionY;}
 public void setPointDirection(int degrees){myPointDirection = degrees;}
 public double getPointDirection(){return myPointDirection;}
-public Bullet(SpaceShip theShip) 
+
+public Bullet(SpaceShip theShip)  
 {
 myCenterX = theShip.getX(); 
 myCenterY = theShip.getY(); 
@@ -98,15 +95,15 @@ myDirectionY = 5 * Math.cos(dRadians) + theShip.getDirectionY();
 
 public void show() 
 { 
-fill(256, 0, 0); 
-ellipse((float)myCenterX, (float)myCenterY, 4, 4); 
+noStroke(); 
+fill(153, 255, 153); 
+ellipse((float)myCenterX, (float)myCenterY, 7, 7); 
 }
-public void move() 
-{
-
+public void move() { 
 
 
 }
+
 }
 
 class Asteroid extends Floater 
@@ -194,7 +191,7 @@ class SpaceShip extends Floater
   yCorners[1] = 12; 
   yCorners[2] = 0; 
   yCorners[3] = -12; 
-  myColor = color(153, 153, 255);  
+  myColor = color(51, 255, 255);  
   myCenterX = 300; 
   myCenterY = 300; 
   myDirectionX = 0; 
