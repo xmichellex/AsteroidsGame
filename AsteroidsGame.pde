@@ -44,8 +44,9 @@ public void draw()
   //bullet 
   for(int i=0; i<fire.size(); i++)
     {
-    fire.get(i).show();
-    fire.get(i).move(); 
+     fire.get(i).show();
+     fire.get(i).move(); 
+
   }
 }
 public void keyPressed() { 
@@ -69,6 +70,7 @@ public void keyPressed() {
     fire.add(new Bullet(tom)); 
   } 
 } 
+
 
 class Bullet extends Floater 
 {
@@ -99,11 +101,6 @@ noStroke();
 fill(153, 255, 153); 
 ellipse((float)myCenterX, (float)myCenterY, 7, 7); 
 }
-public void move() { 
-
-
-}
-
 }
 
 class Asteroid extends Floater 
