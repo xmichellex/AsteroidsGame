@@ -1,30 +1,30 @@
 
 SpaceShip tom; 
 Star[] light; 
-ArrayList <Asteroid> theList; 
-ArrayList <Bullet> fire; 
+ArrayList <Asteroid> asteroid; 
+ArrayList <Bullet> bullet; 
 public void setup() 
 {
- size(600, 600); 
- tom = new SpaceShip();
- fire = new ArrayList <Bullet>(); 
- // star 
- light = new Star[200];
- for (int i = 0; i < light.length; i++) 
+ size(600, 600);
+// star 
+ light = new Star[200]; 
+for (int i = 0; i < light.length; i++) 
  {
  light[i] = new Star(); 
  } 
+ tom = new SpaceShip();
+ //bullet
+ bullet = new ArrayList<Bullet>(); 
  // asteroid
- theList = new ArrayList<Asteroid>(); 
+ asteroid = new ArrayList<Asteroid>(); 
  for(int i = 0; i < 20; i++) { 
-  theList.add(new Asteroid()); 
- }
- fire = new ArrayList<Bullet>(); 
- 
+  asteroid.add(new Asteroid()); 
+ } 
 }
 public void draw() 
 {
   background(0);
+  frameRate(40);
   // stars                                                                   
   for (int i = 0; i < light.length; i++) { 
     light[i].show(); 
@@ -33,22 +33,25 @@ public void draw()
   tom.show(); 
   tom.move(); 
   // asteroid
- for (int i = 0; i < theList.size(); i++) { 
-  theList.get(i).move(); 
-  theList.get(i).show(); 
-  if(dist(tom.getX(), tom.getY(), theList.get(i).getX(), theList.get(i).getY()) < 20)  
+ for (int i = 0; i < asteroid.size(); i++) { 
+  asteroid.get(i).move(); 
+  asteroid.get(i).show(); 
+  if(dist(tom.getX(), tom.getY(), asteroid.get(i).getX(), asteroid.get(i).getY()) < 20)  
     { 
-    theList.remove(i); 
+    asteroid.remove(i); 
     }
-  }
   //bullet 
-  for(int i=0; i<fire.size(); i++)
+  for(int j=0; j<bullet.size(); j++)
     {
-     fire.get(i).show();
-     fire.get(i).move(); 
-
-  }
-}
+     bullet.get(j).show();
+     bullet.get(j).move();
+      if(dist(bullet.get(j).getX(), bullet.get(j).getY(), asteroid.get(i).getX(), asteroid.get(i).getY()) < 20) {
+        bullet.remove(j);  
+        asteroid.remove(i); 
+        }  
+    }
+  } 
+ }
 public void keyPressed() { 
   if (keyCode == UP) { 
     tom.accelerate(0.05); 
@@ -67,7 +70,7 @@ public void keyPressed() {
     tom.setDirectionY(0);
   }   
   if (key == 'z') { 
-    fire.add(new Bullet(tom)); 
+    bullet.add(new Bullet(tom)); 
   } 
 } 
 
@@ -92,7 +95,7 @@ myCenterY = theShip.getY();
 myPointDirection = theShip.getPointDirection();
 double dRadians = myPointDirection*(Math.PI/180);
 myDirectionX = 5 * Math.cos(dRadians) + theShip.getDirectionX(); 
-myDirectionY = 5 * Math.cos(dRadians) + theShip.getDirectionY(); 
+myDirectionY = 5 * Math.sin(dRadians) + theShip.getDirectionY(); 
 } 
 
 public void show() 
@@ -100,6 +103,12 @@ public void show()
 noStroke(); 
 fill(153, 255, 153); 
 ellipse((float)myCenterX, (float)myCenterY, 7, 7); 
+}
+public void move()  
+{ 
+
+myCenterX += myDirectionX; 
+myCenterY += myDirectionY; 
 }
 }
 
